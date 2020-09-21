@@ -4,23 +4,25 @@
     <_id>ID</_id>
     <name>String</name>
     <surname>String</surname>
-    <mail>Mail</mail>
+    <email>Mail</email>
     <password>sha-256</password>
-    <phones>
-        <phone>Number</phone>
-    </phones>
+    <phoneNums>
+        <phoneNum>Number</phoneNum>
+    </phoneNums>
     <bandSearch> Boolean</bandSearch>
-    <liveSearch> Boolean</liveSearch>
+    <liveSearch> 
+        <location>String</location>
+    </liveSearch>
     <studioSearch> Boolean</studioSearch>
     <image>URL</image>
     <description>String</description>
     <musicTags>
         <musicTag>String</musicTag>
     </musicTags>
-    <knows>
-        <to>String</to>
-    </knows>
-    <from>String</from>
+    <instruments>
+        <instrument>String</instrument>
+    </instruments>
+    <city>String</city>
     <lastUpdate>Date<lastUpdate>
 </musician>
 
@@ -35,9 +37,9 @@
             <authority> Read,Admin</authority>
         </member>
     </members>
-    <mail>Mail</mail>
+    <email>Mail</email>
     <membersSearch> 
-        <knows>String</knows>
+        <instruments>String</instruments>
     </membersSearch>
     <liveSearch> 
         <location>String</location>
@@ -50,10 +52,10 @@
     <musicTags>
         <musicTag>String</musicTag>
     </musicTags>
-    <knows>
-        <to>String</to>
-    </knows>
-    <from>String</from>
+    <instruments>
+        <instrument>String</instrument>
+    </instruments>
+    <city>String</city>
     <lastUpdate>Date<lastUpdate>
     <status>isDeleted / wantsToDelete / live</status>
 </band>
@@ -63,39 +65,39 @@
 <bar>
     <_id>ID</_id>
     <name>String</name>
-    <mail>Mail</mail>
+    <email>Mail</email>
     <password>sha-256</password>
-    <location>String</location>
-    <phones>
-        <phone>Number</phone>
-    </phones>
+    <address>String</address>
+    <phoneNums>
+        <phoneNum>Number</phoneNum>
+    </phoneNums>
     <openTime> 
         <monday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </monday>
         <tuesday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </tuesday>
         <wednesday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </wednesday>
         <thursday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </thursday>
         <friday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </friday>
         <saturday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </saturday>
         <sunday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </sunday>
     </openTime>
@@ -110,39 +112,39 @@
 <studio>
     <_id>ID</_id>
     <name>String</name>
-    <mail>Mail</mail>
+    <email>Mail</email>
     <password>sha-256</password>
-    <location>String</location>
-    <phones>
-        <phone>Number</phone>
-    </phones>
+    <address>String</address>
+    <phoneNums>
+        <phoneNum>Number</phoneNum>
+    </phoneNums>
     <openTime> 
         <monday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </monday>
         <tuesday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </tuesday>
         <wednesday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </wednesday>
         <thursday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </thursday>
         <friday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </friday>
         <saturday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </saturday>
         <sunday>
-            <from>Hour</from>
+            <from>Hour<from>
             <to>Hour</to>
         </sunday>
     </openTime>
@@ -171,7 +173,7 @@
     <name>String</name>
     <surname>String</surname>
     <username>String</username>
-    <mail>Mail</mail>
+    <email>Mail</email>
     <password>sha-256</password>
     <musicTags>
         <musicTag>String</musicTag>
