@@ -1,0 +1,25 @@
+<user>
+    <_id>ID</_id>
+    <name>String</name>
+    <surname>String</surname>
+    <username>String</username>
+    <mail>Mail</mail>
+    <password>sha-256</password>
+    <musicTags>
+        <musicTag>String</musicTag>
+    </musicTags>
+    <follows>
+        <bands>
+            <band> band _id </band>
+        </bands>
+        <musicians>
+            <musician> musician _id </musician>
+        </musicians>
+        <bars>
+            <bar> bar _id </bar>
+        </bars>
+    </follows>
+    <locations>
+        <location> String </location>
+    </locations>
+</user>

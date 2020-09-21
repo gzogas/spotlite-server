@@ -1,0 +1,23 @@
+<musician>
+    <_id>ID</_id>
+    <name>String</name>
+    <surname>String</surname>
+    <mail>Mail</mail>
+    <password>sha-256</password>
+    <phones>
+        <phone>Number</phone>
+    </phones>
+    <bandSearch> Boolean</bandSearch>
+    <liveSearch> Boolean</liveSearch>
+    <studioSearch> Boolean</studioSearch>
+    <image>URL</image>
+    <description>String</description>
+    <musicTags>
+        <musicTag>String</musicTag>
+    </musicTags>
+    <knows>
+        <to>String</to>
+    </knows>
+    <from>String</from>
+    <lastUpdate>Date<lastUpdate>
+</musician>

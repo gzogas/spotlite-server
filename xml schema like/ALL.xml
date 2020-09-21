@@ -1,0 +1,229 @@
+#### Collection
+
+<musician>
+    <_id>ID</_id>
+    <name>String</name>
+    <surname>String</surname>
+    <mail>Mail</mail>
+    <password>sha-256</password>
+    <phones>
+        <phone>Number</phone>
+    </phones>
+    <bandSearch> Boolean</bandSearch>
+    <liveSearch> Boolean</liveSearch>
+    <studioSearch> Boolean</studioSearch>
+    <image>URL</image>
+    <description>String</description>
+    <musicTags>
+        <musicTag>String</musicTag>
+    </musicTags>
+    <knows>
+        <to>String</to>
+    </knows>
+    <from>String</from>
+    <lastUpdate>Date<lastUpdate>
+</musician>
+
+#### Collection
+
+<band>
+    <_id>ID</_id>
+    <name>String</name>
+    <members>
+        </member> 
+            <id> Member _id</id>
+            <authority> Read,Admin</authority>
+        </member>
+    </members>
+    <mail>Mail</mail>
+    <membersSearch> 
+        <knows>String</knows>
+    </membersSearch>
+    <liveSearch> 
+        <location>String</location>
+    </liveSearch>
+    <studioSearch> 
+       <location>String</location>
+    </studioSearch>
+    <image>URL</image>
+    <description>String</description>
+    <musicTags>
+        <musicTag>String</musicTag>
+    </musicTags>
+    <knows>
+        <to>String</to>
+    </knows>
+    <from>String</from>
+    <lastUpdate>Date<lastUpdate>
+    <status>isDeleted / wantsToDelete / live</status>
+</band>
+
+#### Collection
+
+<bar>
+    <_id>ID</_id>
+    <name>String</name>
+    <mail>Mail</mail>
+    <password>sha-256</password>
+    <location>String</location>
+    <phones>
+        <phone>Number</phone>
+    </phones>
+    <openTime> 
+        <monday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </monday>
+        <tuesday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </tuesday>
+        <wednesday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </wednesday>
+        <thursday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </thursday>
+        <friday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </friday>
+        <saturday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </saturday>
+        <sunday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </sunday>
+    </openTime>
+    <liveSearch>Boolean</liveSearch>
+    <image>URL</image>
+    <description>String</description>
+    <lastUpdate>Date<lastUpdate>
+</bar>
+
+#### Collection
+
+<studio>
+    <_id>ID</_id>
+    <name>String</name>
+    <mail>Mail</mail>
+    <password>sha-256</password>
+    <location>String</location>
+    <phones>
+        <phone>Number</phone>
+    </phones>
+    <openTime> 
+        <monday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </monday>
+        <tuesday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </tuesday>
+        <wednesday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </wednesday>
+        <thursday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </thursday>
+        <friday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </friday>
+        <saturday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </saturday>
+        <sunday>
+            <from>Hour</from>
+            <to>Hour</to>
+        </sunday>
+    </openTime>
+    <occupiedAt>
+        <dayTime>
+            <day>String</day>
+            <time>Number</time>
+        </dayTime>
+    </occupiedAt>
+    <search>Boolean</search>
+    <image>URL</image>
+    <description>String</description>
+    <lastUpdate>Date<lastUpdate>
+    <customers>
+        <customer>
+            <id> musician or band _id</id>
+            <stars>Number</stars>
+        <customer>
+    </customers>
+</studio>
+
+#### Collection
+
+<user>
+    <_id>ID</_id>
+    <name>String</name>
+    <surname>String</surname>
+    <username>String</username>
+    <mail>Mail</mail>
+    <password>sha-256</password>
+    <musicTags>
+        <musicTag>String</musicTag>
+    </musicTags>
+    <follows>
+        <bands>
+            <band> band _id </band>
+        </bands>
+        <musicians>
+            <musician> musician _id </musician>
+        </musicians>
+        <bars>
+            <bar> bar _id </bar>
+        </bars>
+    </follows>
+    <locations>
+        <location> String </location>
+    </locations>
+</user>
+
+#### Collection
+
+<event>
+    <_id>ID</_id>
+    <band> band _id </band>
+    <musician> musician _id </musician>
+    <bar> bar _id </bar>
+    <date>String</date>
+    <image>URL<image>
+    <willCome>
+        <user> user _id</user>
+    </willCome>
+    <musicTags>
+        <musicTag>String</musicTag>
+    </musicTags>
+    <description> String </description>
+</event>
+
+#### Collection
+
+<status>
+    <_id>ID</_id>
+    <band> band _id </band>
+    <date>String</date>
+    <isLiked>
+        <user> user _id</user>
+    </isLiked>
+    <description> String </description>
+</status>
+
+#### Collection
+
+<musicTags>
+    <musicTag>String</musicTag>
+</musicTags>
