@@ -40,7 +40,7 @@ export class UsersController {
         return { newId: generateId };
     }
 
-    @Patch()
+    @Patch(":email")
     @HttpCode(HttpStatus.ACCEPTED)
     async updateUser(
         @Body('name') name: string,
@@ -54,9 +54,10 @@ export class UsersController {
             musicians: [],
             bars: [],
         },
-        @Body('locations') locations: []
+        @Body('locations') locations: [],
+        @Param("email") mail:string
     ) {
-        await this.userService.updateUser(name, surname, username, email, password, musicTags, follows, locations);
+        await this.userService.updateUser(name, surname, username, email, password, musicTags, follows, locations,mail);
         return {
             "statusCode": 202,
             "message": "User updated successfully.",
@@ -64,10 +65,10 @@ export class UsersController {
         }
     }
 
-    @Delete(":mail")
+    @Delete(":email")
     @HttpCode(HttpStatus.NO_CONTENT)
-    async deleteUser(@Param("mail") mail: string) {
-        const user = await this.userService.deleteUser(mail);
+    async deleteUser(@Param("email") email: string) {
+        await this.userService.deleteUser(email);
     }
 
 }

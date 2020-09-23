@@ -53,13 +53,15 @@ export class UsersService {
         password: string,
         musicTags: [],
         follows: { bands: [], musicians: [], bars: [] },
-        locations: []) {
+        locations: [],
+        mail:string) {
 
-        this.ifMailExist(email);
-        const updatedUser = await this.findUser(email);
+        this.ifMailExist(mail);
+        const updatedUser = await this.findUser(mail);
 
         if (name) updatedUser.name = name;
         if (surname) updatedUser.surname = surname;
+        if (email) updatedUser.email = email;
         if (username) updatedUser.username = username;
         if (password) updatedUser.password = password;
         if (musicTags) updatedUser.musicTags = musicTags;
