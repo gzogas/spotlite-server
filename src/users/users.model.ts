@@ -11,15 +11,13 @@ export const UsersSchema = new mongoose.Schema({
         unique: true
     },
     password: String,
-    musicTags: [{
-        musicTag: String
-    }],
+    musicTags: [String],
     follows: {
-        bands: [{ band: String }],
-        musicians: [{ musician: String }],
-        bars: [{ bar: String }]
+        bands: [String],
+        musicians: [String],
+        bars: [String]
     },
-    locations: [{ location: String }]
+    locations: [String]
 })
 
 export interface User {
@@ -29,13 +27,11 @@ export interface User {
     username: string,
     email: string,
     password: string,
-    musicTags: [{
-        musicTag: string
-    }],
+    musicTags: [string],
     follows: {
-        bands: [{ band: string }],
-        musicians: [{ musician: string }],
-        bars: [{ bar: string }]
+        bands: [string],
+        musicians: [string],
+        bars: [string]
     },
-    locations: [{ location: string }]
+    locations: [string]
 }
