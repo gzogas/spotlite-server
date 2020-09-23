@@ -1,9 +1,0 @@
-<status>
-    <_id>ID</_id>
-    <band> band _id </band>
-    <date>String</date>
-    <isLiked>
-        <user> user _id</user>
-    </isLiked>
-    <description> String </description>
-</status>
