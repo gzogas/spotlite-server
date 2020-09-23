@@ -34,7 +34,8 @@ export class BandsService {
         image:string,
         description:string,
         musicTags: [],
-        instruments: []) {
+        instruments: [],
+        ) {
 
         const newBand = new this.bandModel({ name, members, email, membersSearch, liveSearch, studioSearch, image, description,musicTags,instruments });
         console.log(newBand);
@@ -58,10 +59,11 @@ export class BandsService {
         image:string,
         description:string,
         musicTags: [],
-        instruments: []) {
+        instruments: [],
+        mail:string) {
 
-        this.ifMailExist(email);
-        const updatedBand = await this.findBand(email);
+        this.ifMailExist(mail);
+        const updatedBand = await this.findBand(mail);
 
         if (name) updatedBand.name = name;
         if (members) updatedBand.members = members;

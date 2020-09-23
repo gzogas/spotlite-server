@@ -38,7 +38,7 @@ export class BandsController {
         return { newId: generateId };
     }
 
-    @Patch()
+    @Patch(":mail")
     @HttpCode(HttpStatus.ACCEPTED)
     async updateBand(
         @Body('name') name: string,
@@ -50,9 +50,10 @@ export class BandsController {
         @Body('image') image:string,
         @Body('description') description:string,
         @Body('musicTags') musicTags: [],
-        @Body('instruments') instruments: []
+        @Body('instruments') instruments: [],
+        @Param("mail") mail: string
     ) {
-        await this.bandService.updateBand(name, members, email, membersSearch, liveSearch, studioSearch, image, description,musicTags,instruments);
+        await this.bandService.updateBand(name, members, email, membersSearch, liveSearch, studioSearch, image, description,musicTags,instruments,mail);
         return {
             "statusCode": 202,
             "message": "Band updated successfully.",
