@@ -12,15 +12,13 @@ export const BandsSchema = new mongoose.Schema({
         index: true,
         unique: true
     },
-    membersSearch: [{ instruments: String }],
-    liveSearch: [{ location: String }],
-    studioSearch: [{ location: String }],
+    membersSearch: [String],
+    liveSearch: [String],
+    studioSearch: [String],
     image:String,
     description:String,
-    musicTags: [{
-        musicTag: String
-    }],
-    instruments:[{instrument:String}]    
+    musicTags: [String],
+    instruments:[String]    
 })
 
 export interface Band {
@@ -28,13 +26,11 @@ export interface Band {
     name: string,
     members: [{member:string,authority:string}],
     email: string,
-    membersSearch: [{ isruments: string }],
-    liveSearch: [{ location: string }],
-    studioSearch: [{ location: string }],
+    membersSearch: [string],
+    liveSearch: [string],
+    studioSearch: [string],
     image:string,
     description:string,
-    musicTags: [{
-        musicTag: string
-    }],
-    instruments:[{instruments:String}]  
+    musicTags: [string],
+    instruments:[string]  
 }
