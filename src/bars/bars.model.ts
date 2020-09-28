@@ -7,37 +7,44 @@ export const BarSchema = new mongoose.Schema({
     password: String,
     address: String,
     phoneNums: [Number],
-    openTime: [{
-        mondey: {
-            from: Date,
-            to: Date
-        },
-        tuesday: {
-            from: Date,
-            to: Date
-        },
-        wednesday: {
-            from: Date,
-            to: Date
-        },
-        thursday: {
-            from: Date,
-            to: Date
-        },
-        friday: {
-            from: Date,
-            to: Date
-        },
-        suturday: {
-            from: Date,
-            to: Date
-        },
-        sunday: {
-            from: Date,
-            to: Date
+    // openTime: {
+    //     mondey: {
+    //         from: String,
+    //         to: String
+    //     },
+    //     tuesday: {
+    //         from: String,
+    //         to: String
+    //     },
+    //     wednesday: {
+    //         from: String,
+    //         to: String
+    //     },
+    //     thursday: {
+    //         from: String,
+    //         to: String
+    //     },
+    //     friday: {
+    //         from: String,
+    //         to: String
+    //     },
+    //     suturday: {
+    //         from: String,
+    //         to: String
+    //     },
+    //     sunday: {
+    //         from: String,
+    //         to: String
+    //     }
+    // }
+    openTime: [
+        {
+            day: String,
+            from: String,
+            to: String
         }
-    }
-    ],
+    ]
+    ,
     liveSearch: Boolean,
     image: String,
     description: String,
@@ -53,15 +60,16 @@ export interface Bar extends mongoose.Document {
     password: string, 
     address: string, 
     phoneNums: [number], 
-    openTime: [
-        {monday: {from:Date, to:Date}},
-        {tuesday: {from:Date, to:Date}},
-        {wednesday: {from:Date, to:Date}},
-        {thursday: {from:Date, to:Date}},
-        {friday: {from:Date, to:Date}},
-        {suturday: {from:Date, to:Date}},
-        {sunday: {from:Date, to:Date}},
-    ], 
+    openTime: 
+        [
+            {
+                day: string,
+                from: string,
+                to: string
+            }
+        ]
+    ,
+     
     liveSearch: boolean,
     image: string, 
     description: string, 

@@ -10,60 +10,75 @@ export class barsController {
 
     @Get()
     async getAllBars() {
-       const musicians = await this.bService.getBars();
-       return musicians;
+       const bars = await this.bService.getBars();
+       return bars;
      }
 
      @Get(':email')
-    async getSingleMusician(@Param('email') musicianEmail: string) {
-       const musicians = await this.bService.getBar(musicianEmail);
-       return musicians;
+    async getSingleBar(@Param('email') musicianEmail: string) {
+       const bars = await this.bService.getBar(musicianEmail);
+       return bars;
      }
 
 
 
    @Post()
-   async addMusician(
-       @Body('name') mName: string,
-       @Body('surname') mSurname: string,
-       @Body('email') mEmail: string,
-       @Body('password') mPassword: string,
-       @Body('phoneNums') mPhoneNums: [number],
-       @Body('bandSearch') mBandSearch: boolean,
-       @Body('liveSearch') mLiveSearch: [string],
-       @Body('image') mImage: string,
-       @Body('description') mDescription: string,
-       @Body('musicTags') mMusicTags: [string],
-       @Body('instruments') mInstruments: [string]
+   async addBar(
+       @Body('name') bName: string,
+       @Body('email') bEmail: string,
+       @Body('password') bPassword: string,
+       @Body('address') bAddress: string,
+       @Body('phoneNums') bPhoneNums: [number],
+       @Body('openTime')  bOpenTime: 
+       [
+           {
+               day: string,
+               from: string,
+               to: string
+           }
+       ],
+       @Body('liveSearch') bLiveSearch: boolean,
+       @Body('image') bImage: string,
+       @Body('description') bDescription: string,
+       @Body('musicTags') bMusicTags: [string],
+       @Body('lastUpdate') bLastUpdate: Date,
    ) {
-       const generatedId = await this.bService.insertMusician(
-           mName, mSurname, mEmail, mPassword, mPhoneNums, mBandSearch, mLiveSearch, mImage, mDescription, mMusicTags, mInstruments);
+       const generatedId = await this.bService.insertBar(
+           bName, bEmail, bPassword, bAddress, bPhoneNums, bOpenTime, bLiveSearch, bImage, bDescription, bMusicTags, bLastUpdate);
        return { id: generatedId }
    }
 
    @Patch(':email')
-   async updateMusician(
-       @Param('email') mEmail: string,
-       @Body('name') mName: string,
-       @Body('surname') mSurname: string,
-       @Body('password') mPassword: string,
-       @Body('phoneNums') mPhoneNums: [number],
-       @Body('bandSearch') mBandSearch: boolean,
-       @Body('liveSearch') mLiveSearch: [string],
-       @Body('image') mImage: string,
-       @Body('description') mDescription: string,
-       @Body('musicTags') mMusicTags: [string],
-       @Body('instruments') mInstruments: [string]
+   async updateBar(
+       @Param('email') bEmail: string,
+       @Body('name') bName: string,
+       @Body('password') bPassword: string,
+       @Body('address') bAddress: string,
+       @Body('phoneNums') bPhoneNums: [number],
+       @Body('openTime')  bOpenTime: 
+       [
+           {
+               day: string,
+               from: string,
+               to: string
+           }
+       ]
+    ,
+       @Body('liveSearch') bLiveSearch: boolean,
+       @Body('image') bImage: string,
+       @Body('description') bDescription: string,
+       @Body('musicTags') bMusicTags: [string],
+       @Body('lastUpdate') bLastUpdate: Date,
    ){
-      const updatedMusician = await this.bService.updateMusician(
-          mEmail, mName, mSurname, mPassword, mPhoneNums, mBandSearch, mLiveSearch, mImage, mDescription, mMusicTags, mInstruments)
+      const updatedMusician = await this.bService.updateBar(
+          bEmail, bName, bPassword, bAddress, bPhoneNums, bOpenTime, bLiveSearch, bImage, bDescription, bMusicTags, bLastUpdate)
        return  updatedMusician;
    }
 
    @Delete(':email')
-   async removeMusician(@Param('email') musicianEmail: string)
+   async removeBar(@Param('email') musicianEmail: string)
    {
-      await this.bService.deleteMusician(musicianEmail);
+      await this.bService.deleteBar(musicianEmail);
    }
 
 

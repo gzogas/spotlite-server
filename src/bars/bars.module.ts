@@ -11,6 +11,6 @@ import { BarSchema } from "./bars.model";
 })
 
 
-export class MusiciansModule {
+export class BarsModule {
 
 }
