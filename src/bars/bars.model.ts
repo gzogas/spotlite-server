@@ -7,36 +7,6 @@ export const BarSchema = new mongoose.Schema({
     password: String,
     address: String,
     phoneNums: [Number],
-    // openTime: {
-    //     mondey: {
-    //         from: String,
-    //         to: String
-    //     },
-    //     tuesday: {
-    //         from: String,
-    //         to: String
-    //     },
-    //     wednesday: {
-    //         from: String,
-    //         to: String
-    //     },
-    //     thursday: {
-    //         from: String,
-    //         to: String
-    //     },
-    //     friday: {
-    //         from: String,
-    //         to: String
-    //     },
-    //     suturday: {
-    //         from: String,
-    //         to: String
-    //     },
-    //     sunday: {
-    //         from: String,
-    //         to: String
-    //     }
-    // }
     openTime: [
         {
             day: String,

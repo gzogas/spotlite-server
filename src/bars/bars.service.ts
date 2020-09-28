@@ -1,5 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ExceptionFilter, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { ExecException } from 'child_process';
 import { Model } from 'mongoose';
 import { Bar } from './bars.model';
 
@@ -67,44 +68,50 @@ export class BarsService {
     // UPDATE A SPESIFIC BARS DATA BY EMAIL
     async updateBar(
         barEmail: string,
-        name: string,
-        password: string,
-        address: string,
-        phoneNums: [number],
-        openTime:
-            [
-                {
-                    day: string,
-                    from: string,
-                    to: string
-                }
-            ],
-        liveSearch: boolean,
-        image: string,
-        description: string,
-        musicTags: [string],
-        lastUpdate: Date
+        bar : {
+            name: string, 
+            email: string, 
+            password: string, 
+            address: string, 
+            phoneNums: [number], 
+            openTime: 
+                [
+                    {
+                        day: string,
+                        from: string,
+                        to: string
+                    }
+                ]
+            ,
+             
+            liveSearch: boolean,
+            image: string, 
+            description: string, 
+            musicTags: [string], 
+            lastUpdate: Date
+        
+        }
     )
         : Promise<Bar> {
 
         const updatedBar = await this.findBar(barEmail);
 
-        name ? updatedBar.name = name : null;
-        password ? updatedBar.password = password : null;
-        address ? updatedBar.address = address : null;
-        phoneNums ? updatedBar.phoneNums = phoneNums : null;
+        bar.name ? updatedBar.name = bar.name : this._throw(new NotFoundException("Name is required"));
+        bar.password ? updatedBar.password = bar.password : this._throw(new NotFoundException("Password is required"));
+        bar.address ? updatedBar.address = bar.address : this._throw(new NotFoundException("Address is required"));
+        bar.phoneNums ? updatedBar.phoneNums = bar.phoneNums : this._throw(new NotFoundException("Phone numbers are required"));
 
 
-        openTime.map((day, index) => {
-            day.from ? updatedBar.openTime[index].from = day.from : null;
-            day.to ? updatedBar.openTime[index].to = day.to : null;
+        bar.openTime.map((day, index) => {
+            day.from ? updatedBar.openTime[index].from = day.from : this._throw(new NotFoundException("From is required"));
+            day.to ? updatedBar.openTime[index].to = day.to : this._throw(new NotFoundException("To is required"));
         })
 
-        liveSearch ? updatedBar.liveSearch = liveSearch : null;
-        image ? updatedBar.image = image : null;
-        description ? updatedBar.description = description : null;
-        musicTags ? updatedBar.musicTags = musicTags : null;
-        lastUpdate ? updatedBar.lastUpdate = lastUpdate : null;
+        bar.liveSearch ? updatedBar.liveSearch = bar.liveSearch : this._throw(new NotFoundException("Livesearch is required"));
+        bar.image ? updatedBar.image = bar.image : this._throw(new NotFoundException("Image is required"));
+        bar.description ? updatedBar.description = bar.description : this._throw(new NotFoundException("Description is required"));
+        bar.musicTags ? updatedBar.musicTags = bar.musicTags : this._throw(new NotFoundException("Music tags are required"));
+        bar.lastUpdate ? updatedBar.lastUpdate = bar.lastUpdate : this._throw(new NotFoundException("Last update is required"));
         const result = updatedBar.save();
         return result;
 
@@ -118,7 +125,7 @@ export class BarsService {
         const result = await this.barModel.deleteOne({ email: barEmail }).exec();
 
         if (result.n === 0) {
-            throw new NotFoundException('Could not find bar.')
+            this._throw(new NotFoundException(`Could not find bar with '${barEmail}' email.`))
         }
 
 
@@ -134,13 +141,19 @@ export class BarsService {
             bar = await this.barModel.findOne({ email: barEmail }).exec();
 
         } catch (error) {
-            throw new NotFoundException('Could not find musician.')
+            //throw new NotFoundException('Could not find bar.')
+            this._throw(error);
         }
         if (!bar) {
-            throw new NotFoundException('Could not find musician.')
+            this._throw(new NotFoundException(`Could not find bar with '${barEmail}' email.`))
         }
         console.log(bar);
         return bar;
+    }
+
+    // Exception handling method
+    private _throw(err: ExecException): Error {
+        throw err;
     }
 
 }

@@ -50,29 +50,34 @@ export class barsController {
 
    @Patch(':email')
    async updateBar(
-       @Param('email') bEmail: string,
-       @Body('name') bName: string,
-       @Body('password') bPassword: string,
-       @Body('address') bAddress: string,
-       @Body('phoneNums') bPhoneNums: [number],
-       @Body('openTime')  bOpenTime: 
-       [
-           {
-               day: string,
-               from: string,
-               to: string
-           }
-       ]
-    ,
-       @Body('liveSearch') bLiveSearch: boolean,
-       @Body('image') bImage: string,
-       @Body('description') bDescription: string,
-       @Body('musicTags') bMusicTags: [string],
-       @Body('lastUpdate') bLastUpdate: Date,
+    // DIFFERENT APROACH WITH SINGLE BODY DECORATOR  
+        @Param('email') barEmail: string,
+        @Body() bar : {
+            name: string, 
+            email: string, 
+            password: string, 
+            address: string, 
+            phoneNums: [number], 
+            openTime: 
+                [
+                    {
+                        day: string,
+                        from: string,
+                        to: string
+                    }
+                ]
+            ,
+             
+            liveSearch: boolean,
+            image: string, 
+            description: string, 
+            musicTags: [string], 
+            lastUpdate: Date
+        
+        }
    ){
-      const updatedMusician = await this.bService.updateBar(
-          bEmail, bName, bPassword, bAddress, bPhoneNums, bOpenTime, bLiveSearch, bImage, bDescription, bMusicTags, bLastUpdate)
-       return  updatedMusician;
+      const updatedBar = await this.bService.updateBar(barEmail, bar)
+       return  updatedBar;
    }
 
    @Delete(':email')
