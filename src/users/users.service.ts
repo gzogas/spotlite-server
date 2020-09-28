@@ -18,23 +18,32 @@ export class UsersService {
         return users;
     }
 
-    async getSingleUser(email: string) {
-        const user = await this.findUser(email);
+    async getSingleUser(username: string) {
+        const user = await this.findUser(username);
         return user;
     }
 
     //--CREATE
     async insertUser(
-        name: string,
-        surname: string,
-        username: string,
-        email: string,
-        password: string,
-        musicTags: [],
-        follows: { bands: [], musicians: [], bars: [] },
-        locations: []) {
+        user:{
+            name: string,
+            surname: string,
+            username: string,
 
-        const newUser = new this.userModel({ name, surname, username, email, password, musicTags, follows, locations });
+            email: string,
+            password: string,
+            musicTags: [],
+            follows: {
+                bands: [],
+                musicians: [],
+                bars: [],
+            },
+            locations: []
+            }
+            ) {
+
+        const newUser = new this.userModel(user);
+        newUser.lastUpdate= new Date(Date.now()).toLocaleDateString();
         try {
             const result = await newUser.save();
             return result.id as string;
@@ -42,42 +51,49 @@ export class UsersService {
             throw new ConflictException('User already exists.')
         }
 
-    }
+    }   
 
     //--UPDATE
     async updateUser(
-        name: string,
-        surname: string,
-        username: string,
-        email: string,
-        password: string,
-        musicTags: [],
-        follows: { bands: [], musicians: [], bars: [] },
-        locations: [],
-        mail:string) {
+        user:
+            {
+            name: string,
+            surname: string,
+            username: string,
+            email: string,
+            password: string,
+            musicTags: [],
+            follows: {
+                bands: [],
+                musicians: [],
+                bars: [],
+                },
+            locations: [],
+            lastUpdate: Date
+            },
+            username) {
 
-        this.ifMailExist(mail);
-        const updatedUser = await this.findUser(mail);
+        this.ifMailExist(username);
+        const updatedUser = await this.findUser(username);
 
-        if (name) updatedUser.name = name;
-        if (surname) updatedUser.surname = surname;
-        if (email) updatedUser.email = email;
-        if (username) updatedUser.username = username;
-        if (password) updatedUser.password = password;
-        if (musicTags) updatedUser.musicTags = musicTags;
-        if (follows.bands) updatedUser.follows.bands = follows.bands;
-        if (follows.musicians) updatedUser.follows.musicians = follows.musicians;
-        if (follows.bars) updatedUser.follows.bars = follows.bars;
-        if (locations) updatedUser.locations = locations;
+        if (user.name) updatedUser.name = user.name;
+        if (user.surname) updatedUser.surname = user.surname;
+        if (user.email) updatedUser.email = user.email;
+        if (user.username) updatedUser.username = user.username;
+        if (user.password) updatedUser.password = user.password;
+        if (user.musicTags) updatedUser.musicTags = user.musicTags;
+        if (user.follows.bands) updatedUser.follows.bands = user.follows.bands;
+        if (user.follows.musicians) updatedUser.follows.musicians = user.follows.musicians;
+        if (user.follows.bars) updatedUser.follows.bars = user.follows.bars;
+        if (user.locations) updatedUser.locations = user.locations;
+        updatedUser.lastUpdate = new Date(Date.now()).toLocaleDateString();
 
         await updatedUser.save();
-
     }
 
-
     //--DELETE
-    async deleteUser(email: string) {
-        const result = await this.userModel.deleteOne({ "email": email }).exec();
+    async deleteUser(username: string) {
+        const result = await this.userModel.deleteOne({ "username": username }).exec();
         if (result.n === 0) {
             throw new NotFoundException('Could not find User.');
         }
@@ -85,10 +101,10 @@ export class UsersService {
 
     //FUNCTIONS NOT USED BY CONTROLLER ONLY BY SERVICE
 
-    private async findUser(email: string) {
+    private async findUser(username: string) {
         let user;
         try {
-            user = await this.userModel.findOne({ "email": email })
+            user = await this.userModel.findOne({ "username": username })
         } catch (error) {
             throw new NotFoundException('Could not find User.')
         }
@@ -98,8 +114,8 @@ export class UsersService {
         return user;
     }
 
-    private ifMailExist(email: string) {
-        if (!email) {
+    private ifMailExist(username: string) {
+        if (!username) {
             throw new NotFoundException('Could not find email variable.')
         }
 

@@ -14,50 +14,55 @@ export class UsersController {
         return user;
     }
 
-    @Get(":mail")
-    async getUser(@Param("mail") mail: string) {
-        const user = await this.userService.getSingleUser(mail);
+    @Get(":username")
+    async getUser(@Param("username") username: string) {
+        const user = await this.userService.getSingleUser(username);
         return user;
     }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async addUser(
-        @Body('name') name: string,
-        @Body('surname') surname: string,
-        @Body('username') username: string,
-        @Body('email') email: string,
-        @Body('password') password: string,
-        @Body('musicTags') musicTags: [],
-        @Body('follows') follows: {
-            bands: [],
-            musicians: [],
-            bars: [],
-        },
-        @Body('locations') locations: []
+        @Body()user:{
+            name: string,
+            surname: string,
+            username: string,
+            email: string,
+            password: string,
+            musicTags: [],
+            follows: {
+                bands: [],
+                musicians: [],
+                bars: [],
+            },
+            locations: []
+            }
     ) {
-        const generateId = await this.userService.insertUser(name, surname, username, email, password, musicTags, follows, locations);
+        const generateId = await this.userService.insertUser(user);
         return { newId: generateId };
     }
 
-    @Patch(":email")
+    @Patch(":username")
     @HttpCode(HttpStatus.ACCEPTED)
     async updateUser(
-        @Body('name') name: string,
-        @Body('surname') surname: string,
-        @Body('username') username: string,
-        @Body('email') email: string,
-        @Body('password') password: string,
-        @Body('musicTags') musicTags: [],
-        @Body('follows') follows: {
+        @Body()user:{name: string,
+        surname: string,
+        username: string,
+        email: string,
+        password: string,
+        musicTags: [],
+        follows: {
             bands: [],
             musicians: [],
             bars: [],
         },
-        @Body('locations') locations: [],
-        @Param("email") mail:string
+        locations: []
+        lastUpdate: Date
+        },
+        @Param("username") username:string,        
     ) {
-        await this.userService.updateUser(name, surname, username, email, password, musicTags, follows, locations,mail);
+
+        await this.userService.updateUser(user,username);
         return {
             "statusCode": 202,
             "message": "User updated successfully.",
@@ -65,10 +70,10 @@ export class UsersController {
         }
     }
 
-    @Delete(":email")
+    @Delete(":username")
     @HttpCode(HttpStatus.NO_CONTENT)
-    async deleteUser(@Param("email") email: string) {
-        await this.userService.deleteUser(email);
+    async deleteUser(@Param("username") username: string) {
+        await this.userService.deleteUser(username);
     }
 
 }

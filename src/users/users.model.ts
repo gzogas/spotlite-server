@@ -17,7 +17,8 @@ export const UsersSchema = new mongoose.Schema({
         musicians: [String],
         bars: [String]
     },
-    locations: [String]
+    locations: [String],
+    lastUpdate: Date
 })
 
 export interface User {
@@ -33,5 +34,6 @@ export interface User {
         musicians: [string],
         bars: [string]
     },
-    locations: [string]
+    locations: [string],
+    lastUpdate: Date
 }
