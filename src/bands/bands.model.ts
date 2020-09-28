@@ -18,7 +18,8 @@ export const BandsSchema = new mongoose.Schema({
     image:String,
     description:String,
     musicTags: [String],
-    instruments:[String]    
+    instruments:[String],
+    lastUpdate: Date    
 })
 
 export interface Band {
@@ -32,5 +33,6 @@ export interface Band {
     image:string,
     description:string,
     musicTags: [string],
-    instruments:[string]  
+    instruments:[string],
+    lastUpdate: Date  
 }

@@ -18,26 +18,16 @@ export class BandsService {
         return bands;
     }
 
-    async getSingleBand(email: string) {
-        const band = await this.findBand(email);
+    async getSingleBand(bandName:string,adminUsername:string) {
+        const band = await this.findBand(bandName,adminUsername);
         return band;
     }
 
     //--CREATE
-    async insertBand(
-        name: string,
-        members: [],
-        email: string,
-        membersSearch: [],
-        liveSearch:[],
-        studioSearch:[],
-        image:string,
-        description:string,
-        musicTags: [],
-        instruments: [],
-        ) {
+    async insertBand(band:Band) {
 
-        const newBand = new this.bandModel({ name, members, email, membersSearch, liveSearch, studioSearch, image, description,musicTags,instruments });
+        const newBand = new this.bandModel(band);
+        newBand.lastUpdate= new Date(Date.now()).toLocaleDateString();
         console.log(newBand);
         try {
             const result = await newBand.save();
@@ -50,31 +40,23 @@ export class BandsService {
 
     //--UPDATE
     async updateBand(
-        name: string,
-        members: [],
-        email: string,
-        membersSearch: [],
-        liveSearch:[],
-        studioSearch:[],
-        image:string,
-        description:string,
-        musicTags: [],
-        instruments: [],
-        mail:string) {
+    band:Band,
+    bandName:string,
+    adminUsername:string){
 
-        this.ifMailExist(mail);
-        const updatedBand = await this.findBand(mail);
+        const updatedBand = await this.findBand(bandName,adminUsername);
 
-        if (name) updatedBand.name = name;
-        if (members) updatedBand.members = members;
-        if (email) updatedBand.email = email;
-        if (membersSearch) updatedBand.membersSearch = membersSearch;
-        if (liveSearch) updatedBand.liveSearch = liveSearch;
-        if (studioSearch) updatedBand.studioSearch = studioSearch;
-        if (image) updatedBand.image = image;
-        if (description) updatedBand.description = description;
-        if (musicTags) updatedBand.musicTags = musicTags;
-        if (instruments) updatedBand.instruments = instruments;
+        if (band.name) updatedBand.name = band.name;
+        if (band.members) updatedBand.members = band.members;
+        if (band.email) updatedBand.email = band.email;
+        if (band.membersSearch) updatedBand.membersSearch = band.membersSearch;
+        if (band.liveSearch) updatedBand.liveSearch = band.liveSearch;
+        if (band.studioSearch) updatedBand.studioSearch = band.studioSearch;
+        if (band.image) updatedBand.image = band.image;
+        if (band.description) updatedBand.description = band.description;
+        if (band.musicTags) updatedBand.musicTags = band.musicTags;
+        if (band.instruments) updatedBand.instruments = band.instruments;
+        updatedBand.lastUpdate = new Date(Date.now()).toLocaleDateString();
 
         await updatedBand.save();
 
@@ -91,10 +73,10 @@ export class BandsService {
 
     //FUNCTIONS NOT USED BY CONTROLLER ONLY BY SERVICE
 
-    private async findBand(email: string) {
+    private async findBand(bandName: string, adminUsername:string) {
         let band;
         try {
-            band = await this.bandModel.findOne({ "email": email })
+            band = await this.bandModel.findOne({ "name": bandName,"members":{$elemMatch: {member:adminUsername,"authority": "ADMIN" }}})
         } catch (error) {
             throw new NotFoundException('Could not find Band.')
         }
@@ -102,13 +84,6 @@ export class BandsService {
             throw new NotFoundException('Could not find Band.')
         }
         return band;
-    }
-
-    private ifMailExist(email: string) {
-        if (!email) {
-            throw new NotFoundException('Could not find email variable.')
-        }
-
     }
 
 }
