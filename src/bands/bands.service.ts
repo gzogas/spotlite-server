@@ -28,12 +28,11 @@ export class BandsService {
 
         const newBand = new this.bandModel(band);
         newBand.lastUpdate= new Date(Date.now()).toLocaleDateString();
-        console.log(newBand);
         try {
             const result = await newBand.save();
             return result.id as string;
         } catch (error) {
-            throw new ConflictException('Band already exists.')
+            throw new ConflictException(error.message);
         }
 
     }
@@ -64,8 +63,8 @@ export class BandsService {
 
 
     //--DELETE
-    async deleteBand(email: string) {
-        const result = await this.bandModel.deleteOne({ "email": email }).exec();
+    async deleteBand(bandName: string,adminUsername: string) {
+        const result = await this.bandModel.deleteOne({ "name": bandName,"members":{$elemMatch: {member:adminUsername,"authority": "ADMIN" }}}).exec();
         if (result.n === 0) {
             throw new NotFoundException('Could not find Band.');
         }

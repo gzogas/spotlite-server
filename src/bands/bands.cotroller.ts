@@ -48,24 +48,10 @@ export class BandsController {
         }
     }
 
-    @Delete(":mail")
+    @Delete(":bandName/:adminUsername")
     @HttpCode(HttpStatus.NO_CONTENT)
-    async deleteBand(@Param("mail") mail: string) {
-        const band = await this.bandService.deleteBand(mail);
+    async deleteBand(@Param("bandName") bandName:string,@Param("adminUsername") adminUsername:string) {
+        const band = await this.bandService.deleteBand(bandName,adminUsername);
     }
-
-    // {
-    //     name: string,
-    //     members: [],
-    //     email: string,
-    //     membersSearch: [],
-    //     liveSearch:[],
-    //     studioSearch:[],
-    //     image:string,
-    //     description:string,
-    //     musicTags: [],
-    //     instruments: [],
-    //     mail: string
-    //     }
 
 }
